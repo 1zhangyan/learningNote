@@ -63,7 +63,7 @@ Simple brute-force method and the code is:
     return size;
     }
     
-   Some detail should be concentrated on:
+   Some details noteworthy:
    1.When using map , be sure which element in the map is key and which one is value. Since function 'find' will just find the key, 
    map will get value via the found key. Select which kind of element should be key and which value.
    2.When insert the pair into a map, we can use function 'insert' , 'emplace' or straight use  c. But if we use the 
