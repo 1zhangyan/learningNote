@@ -39,10 +39,10 @@ Simple brute-force method and the code is:
         }
         return size;
     }
-    When I submmit this code to the OJ, I get the judge as following:
-    "faster than 11.45% of C++ online submissions"
-    Fine , that means I need consider how to optimize it.
-    Since it contains a finding process ,maybe I can use hashmap to improve the perfromance of the algorithm.Here is the code :
+When I submmit this code to the OJ, I get the judge as following:
+"faster than 11.45% of C++ online submissions"
+Fine , that means I need consider how to optimize it.
+Since it contains a finding process ,maybe I can use hashmap to improve the perfromance of the algorithm.Here is the code :
 
     int lengthOfLongestSubstring(string s) {
     map<char,int> hashx;
@@ -63,11 +63,11 @@ Simple brute-force method and the code is:
     return size;
     }
     
-   Some details noteworthy:
-   1.When using map , be sure which element in the map is key and which one is value. Since function 'find' will just find the key, 
-   map will get value via the found key. Select which kind of element should be key and which value.
-   2.When insert the pair into a map, we can use function 'insert' , 'emplace' or straight use  c. But if we use the 
-   first two function insert the an existing key ,the operation fail and the new pair will not be insert in. If we use 
-   'cout<<hashx['a']<<endl;' the key will upgrade.
+Some details noteworthy:
+  1.When using map , be sure which element in the map is key and which one is value. Since function 'find' will just find the key, 
+  map will get value via the found key. Select which kind of element should be key and which value.
+  2.When insert the pair into a map, we can use function 'insert' , 'emplace' or straight use 'map[key]=value;'. But if we use the 
+  first two function insert the an existing key ,the operation fail and the new pair will not be insert in. If we use 
+  'map[key]=value;' the key will upgrade.
 
     
