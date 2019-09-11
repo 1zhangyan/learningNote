@@ -45,7 +45,7 @@ Simple brute-force method and the code is:
     Since it contains a finding process ,maybe I can use hashmap to improve the perfromance of the algorithm.Here is the code :
 
     int lengthOfLongestSubstring(string s) {
-    unordered_map<char,int> hashx;
+    map<char,int> hashx;
     auto end=hashx.end();
     int size =0;
     int n=s.length();
@@ -54,12 +54,20 @@ Simple brute-force method and the code is:
         auto find = hashx.find(s[j]);
         if(find!=end)
         {
-            i=max(i,find->second);
+            i=max(find->second,i);
+            
         }
-        size=max(size,j-i);
-        hashx.emplace(s[j],j);
+             hashx[s[j]]=j+1;
+             size=max(size,j-i+1);   
     }
     return size;
     }
+    
+   Some detail should be concentrated on:
+   1.When using map , be sure which element in the map is key and which one is value. Since function 'find' will just find the key, 
+   map will get value via the found key. Select which kind of element should be key and which value.
+   2.When insert the pair into a map, we can use function 'insert' , 'emplace' or straight use  c. But if we use the 
+   first two function insert the an existing key ,the operation fail and the new pair will not be insert in. If we use 
+   'cout<<hashx['a']<<endl;' the key will upgrade.
 
     
