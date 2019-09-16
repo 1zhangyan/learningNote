@@ -9,11 +9,9 @@ Input: "cbbd"
 Output: "bb"
 
 Idea:
-
-
-
-
-
+Select an element in the string as the center point. If we find that the left and right side elements of the center point is the same,
+then we find a palindromic substring. Extend the length to check wether the substring is the longest one.
+By selecting every element as the center point in the string , we will get a longest substring in the end. 
 
 code :
 class Solution {
