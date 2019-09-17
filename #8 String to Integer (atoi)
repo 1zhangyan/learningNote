@@ -1,0 +1,89 @@
+Question:
+Implement atoi which converts a string to an integer.
+The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting
+from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them 
+as a numerical value.The string can contain additional characters after those that form the integral number, which are ignored and have
+no effect on the behavior of this function.If the first sequence of non-whitespace characters in str is not a valid integral number, 
+or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.
+If no valid conversion could be performed, a zero value is returned.
+Note:
+Only the space character ' ' is considered as whitespace character.
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. 
+If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.
+Example 1:
+Input: "42"
+Output: 42
+Example 2:
+Input: "   -42"
+Output: -42
+Explanation: The first non-whitespace character is '-', which is the minus sign. Then take as many numerical digits as possible, which 
+gets 42.
+Example 3:
+Input: "4193 with words"
+Output: 4193
+Explanation: Conversion stops at digit '3' as the next character is not a numerical digit.
+Example 4:
+Input: "words and 987"
+Output: 0
+Explanation: The first non-whitespace character is 'w', which is not a numerical digit or a +/- sign. 
+Therefore no valid conversion could be performed.
+Example 5:
+Input: "-91283472332"
+Output: -2147483648
+Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
+             Thefore INT_MIN (−231) is returned.
+ 
+ ===================================================
+ Idea:
+ Just transform the string to in is simple.The only thing noteworth is that if input is a long string then you will find if you 
+ transform the string you may get the error:
+                      signed integer overflow: 8 + 2147483640 cannot be represented in type 'int'
+ That means you should do the overflow check before calulate the outcome.
+ 
+ ===================================================
+ Code :
+ class Solution {
+public:
+    int myAtoi(string str) {
+        
+	int i=0;
+	int start=0;
+	int end=0;
+	int flag=1;
+	int len =str.length();
+	long retint=0;
+	while(str[i]==' '&&i<len)
+			i++;
+	if (i==len) 
+		return 0;
+ 	if (isdigit(str[i]))
+	{
+		start=i;
+	}
+	else if (str[i]=='+')
+	{
+		i++;
+		start=i;
+	}
+	else if (str[i]=='-')
+	{
+		i++;
+		flag=-1;
+		start=i;
+	}
+	else 
+		return 0;
+	while(isdigit(str[i])&&i<len)
+	{
+		i++;
+	}
+	for(start=start;start<i;start++)
+	{
+        int temp=str[start]-'0';
+        if(retint>(INT_MAX-temp)/10&&flag ==-1) return INT_MIN;
+		if(retint>(INT_MAX-temp)/10&&flag ==1)  return INT_MAX;
+		retint=retint*10+temp;
+	}
+        return retint*flag;
+    }
+};
