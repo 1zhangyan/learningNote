@@ -1,0 +1,58 @@
+Question:
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such 
+that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the 
+container contains the most water.
+Note: You may not slant the container and n is at least 2.
+
+Idea:
+As the usual , we first use a kind of simple idea to solve the problem and then try to find some ways to improve its performance.
+So , an easy solution is to select all the element pair from the vector, caculate the capacity of every container , and find the 
+biggest one at last.
+code is elegant:
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+    int contain=0;
+	int i=0;
+	int j=0;
+	int len = height.size();
+	for(i=0;i<len-1;i++)
+    for(j=i;j<len;j++)	
+		contain=max(contain,(j-i)*min(height[i],height[j]));
+    return contain;
+    }
+};
+However , it has a really bad performance , the OJ didn't accept the submission like this. And it gave the hint 'Time Limit Exceeded'.
+OK, it is certainly not a ideal way. But we can learn from it : some of the caculate is not neccessary. If we get a height[i] and 
+height[j] , now premise  height[i] is smaller . If we find that height[i+1] is smaller than height[i] , then we need not calulate 
+the caontainer's capacity of pair(i+1,j) cause the capacity must smaller then pair(i,j). Base on this kind of thought , we can set 
+two point, one move from right side and another move from left side.
+Code:
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+	int contain=0;
+	int i=0;
+	int j = height.size()-1;
+	contain=(j-i)*min(height[i],height[j]);
+	while(i!=j)
+	{	
+		if(height[i]>height[j])
+		{
+			j--;
+			if(height[j]>height[j+1])
+				contain=max(contain,(j-i)*min(height[i],height[j]));	
+		}	
+		else
+		{
+			i++;
+			if(height[i]>height[i-1])
+			contain=max(contain,(j-i)*min(height[i],height[j]));	
+		}
+    }
+    return contain;
+    }
+};
+The performace at last is 16 ms, faster than 95.60% of C++ online submissions.
+Another interesting thing I found is that I got two different performance by submmitting the same code twice.
+There may be something wrong with the OJ system.
