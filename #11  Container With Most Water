@@ -23,10 +23,10 @@ public:
     }
 };
 However , it has a really bad performance , the OJ didn't accept the submission like this. And it gave the hint 'Time Limit Exceeded'.
-OK, it is certainly not a ideal way. But we can learn from it : some of the caculate is not neccessary. If we get a height[i] and 
-height[j] , now premise  height[i] is smaller . If we find that height[i+1] is smaller than height[i] , then we need not calulate 
+OK, it is certainly not a ideal way. But we can learn from it : some of the caculation is not neccessary. Now we get a height[i] and 
+height[j] , just premise  height[i] is smaller . If we find that height[i+1] is smaller than height[i] , then we need not calulate 
 the caontainer's capacity of pair(i+1,j) cause the capacity must smaller then pair(i,j). Base on this kind of thought , we can set 
-two point, one move from right side and another move from left side.
+two pointers, one move from right side and another move from left side.
 Code:
 class Solution {
 public:
