@@ -35,7 +35,7 @@ for(it = V.begin(); it!= V.end(); it++)
 vector<vector<int>> two_demension_nums;
 ```
 
-需要注意的是vector.end() 指向vector的末尾后一位，直接访问vector.end越界了，而且，vector.push_back()分配的地址不是vector.end();
+需要注意的是vector.end() 指向vector的末尾后一位，直接访问vector.end越界了，而且，vector.push_back()分配的地址不是vector.end();  
 Reference https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
 
 ===========================  
