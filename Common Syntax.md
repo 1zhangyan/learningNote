@@ -1,6 +1,9 @@
-#  'algorithm'   
+# Some Syntax
 
-## sort
+Reference : http://www.cplusplus.com/reference
+
+##  'algorithm'   
+### sort
 ```C++
 int A[];
 vector<int> V;
@@ -8,10 +11,10 @@ sort ( A , A+n );
 sort ( V.begin() , V.end() );  
 ```
 排序按照从小到大的顺序，需要调整顺序的，交换参数次序即可   
-Reference:https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
+Reference: https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
 
 ===========================  
-# 'vector'  
+## 'vector'  
 ```C++
 #include <vector>  
 int a=0;  
@@ -40,19 +43,49 @@ vector<vector<int>> two_demension_nums;
 Reference https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
 
 ===========================  
-# 'map'  　　　　　 
+## 'map'  　 
+### Diference among map hash_map and unordered_map:  
+ Reference: https://www.cnblogs.com/zzyoucan/p/9127660.html  
+ 
+### unordered_map   
+```C++
+#include <unordered_map>
+unordered_map<char , int> unord_map;
+unordered_map<char , int> iterator it;
+
+// insert the element
+unord_map.insert(map<char,int>::value_type('a', 1));
+unord_map['b'] = 2; 
+unord_map.insert(pair<int,float>('c' , 3));
+//insert the element
+
+//find
+bool result = (unord_map.find('d') == unord_map.end());
+
+//visit
+it = unord_map.find('a');
+cout<<it->first;
+cout<<it->second;
+
+//delete
+unord_map.erase(it);
+```
+Reference: https://blog.csdn.net/fx677588/article/details/76401870  
+
+===========================   
+
+## 'list'　
+
 ===========================  
-# 'list'　　　　　　
+## 'deque'　　　　　　
 ===========================  
-# 'deque'　　　　　　
+## 'queue'　　　　　  
 ===========================  
-# 'queue'　　　　　  
+## 'set'　　　　　　 
 ===========================  
-# 'set'　　　　　　 
+## 'stack'　　 　　　　　
 ===========================  
-# 'stack'　　 　　　　　
+## 'string'　  　　　　
 ===========================  
-# 'string'　  　　　　
-===========================  
-# 'cmath'  　  　　　 
+## 'cmath'  　  　　　 
 
