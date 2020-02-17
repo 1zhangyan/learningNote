@@ -7,7 +7,8 @@ vector<int> V;
 sort ( A , A+n );
 sort ( V.begin() , V.end() );  
 ```
-排序按照从小到大的顺序，需要调整顺序的，交换参数次序即可  
+排序按照从小到大的顺序，需要调整顺序的，交换参数次序即可   
+Reference:https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
 
 ===========================  
 # 'vector'  
