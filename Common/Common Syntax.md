@@ -51,7 +51,7 @@ Reference https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
 ```C++
 #include <unordered_map>
 unordered_map<char , int> unord_map;
-unordered_map<char , int> iterator it;
+unordered_map<char , int>:: iterator it;
 
 // insert the element
 unord_map.insert(map<char,int>::value_type('a', 1));
