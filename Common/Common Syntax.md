@@ -40,9 +40,19 @@ vector<vector<int>> two_demension_nums;
 ```
 
 需要注意的是vector.end() 指向vector的末尾后一位，直接访问vector.end越界了，而且，vector.push_back()分配的地址不是vector.end();  
-Reference https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
+Reference https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html  
 
-===========================  
+===========================     
+## 'stack'　　 　　　　
+```C++
+#include<stack>
+stack <int> s;
+s.empty();//See if the stack is empty;
+s.push();//Add element into the stack;
+s.top();//Get the top element from the stack;
+s.pop();// Pop the top element from the stack;
+```  
+===========================    
 ## 'map'  　 
 ### Diference among map hash_map and unordered_map:  
  Reference: https://www.cnblogs.com/zzyoucan/p/9127660.html  
@@ -73,17 +83,13 @@ unord_map.erase(it);
 Reference: https://blog.csdn.net/fx677588/article/details/76401870  
 
 ===========================   
-
 ## 'list'　
-
 ===========================  
 ## 'deque'　　　　　　
 ===========================  
 ## 'queue'　　　　　  
 ===========================  
 ## 'set'　　　　　　 
-===========================  
-## 'stack'　　 　　　　　
 ===========================  
 ## 'string'　  　　　　
 ===========================  
