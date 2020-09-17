@@ -3,6 +3,9 @@
 Reference : http://www.cplusplus.com/reference
 
 ##  'algorithm'   
+
+## headfile  
+#include<bits/stdc++.h>
 ### sort
 ```C++
 int A[];
