@@ -1,12 +1,15 @@
 # 关键字
 # 面向对象
 ## 内置对象Object的方法和对应的用处
-- getClass()
+- toString()  
+返回类名+@+hashcode  
+
+- getClass()  
   获取运行时的对象，当声明对象和实际.class文件中对象不一致时，返回.class文件中的对象。返回的是运行时的实例类型, 而不是编译类型。
   final表示无法被重写 native表示原生方法由JVM底层C实现。
   返回类型是Class类型。
 
-- hashcode()
+- hashcode()  
   返回一个对象int类型的hash码。不同JVM调用该方法可能返回不同的hash值。
   native方法，可以被重写。
   重写方法需要遵循：
@@ -14,9 +17,25 @@
   - 2 如果2个对象使用equals方法进行比较并且相同的话，那么这2个对象的hashCode方法的值也必须相等;
   - 3 如果根据equals方法，得到两个对象不相等，那么这2个对象的hashCode值可以不相同; 但是，不相等的对象的hashCode值不同的话可以提高哈希表的性能;
 
-- equals()
-- toString()
-- clone()
+- equals()  
+  返回两个对象是否一致。重写步骤：
+  - 判断参数是否==自身
+  - 判断instanceof是否为同一个类型
+  - 比较两个对象所有的阈是否相等  
+
+***根据hashcode的通用规定，如果两个对象的equals方法比较相等，那么hashcode必须也要相等。所以重写equals后要重写hashcode方法***
+
+- clone()  
+  clone方法创建并返回当前对象的一份拷贝。  
+  一般情况下, 对于任何对象 x, 表达式 x.clone() != x 为true，x.clone().getClass() == x.getClass() 也为true;  
+  Object类的clone方法是一个protected的native方法; 而且Object本身没有实现Cloneable接口, 所以不重写clone方法并且进行调用的话会发生CloneNotSupportedException异常;  
+  - 浅拷贝  
+  浅拷贝是将原对象的信息拷贝，拷贝出另一份数据，拷贝后的对象和原对象指向同一块空间。
+  - 深拷贝  
+  深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。深拷贝相比于浅拷贝速度较慢并且花销较大。使用序列化输出到文件或者大数组，再从中读取。  
+
+  ***深浅拷贝区别在对象的处理上，如果对象中只有基本数据类型，两者没有区别***
+  
 
 # 多线程
 ## 如何安全地停止一个线程
