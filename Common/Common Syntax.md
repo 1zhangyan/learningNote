@@ -6,12 +6,14 @@ Reference : http://www.cplusplus.com/reference
 
 ## headfile  
 #include<bits/stdc++.h>
-### sort
+### sort  reverse
 ```C++
 int A[];
 vector<int> V;
 sort ( A , A+n );
 sort ( V.begin() , V.end() );  
+
+reverse ( V.begin()+ i + 1 , V.end() )
 ```
 排序按照从小到大的顺序，需要调整顺序的，交换参数次序即可   
 Reference: https://www.runoob.com/w3cnote/cpp-vector-container-analysis.html
