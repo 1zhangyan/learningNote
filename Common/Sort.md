@@ -48,6 +48,7 @@ QuickSort(int arr[] , int left ,int right)
 			i++;
 		swap(arr[i],arr[j]);
 	}
+	swap(arr[i],arr[left]);
 	QuickSort(arr,left,i-1);
 	QuickSort(arr,i+1,right);
 }
