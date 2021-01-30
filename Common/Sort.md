@@ -39,6 +39,8 @@ QuickSort(int arr[] , int left ,int right)
 {
 	int i = left;
 	int j = right;
+	if(i >= j )
+		return ;
 	int k = arr[left];
 	while(i < j)
 	{
