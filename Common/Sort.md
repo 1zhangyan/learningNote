@@ -4,11 +4,11 @@
 ```C++
 void Adjust(int arr[] , int start , int end)
 {
-	int dad = (end+1)/2-1;
+	int dad = start;
 	int son = 2*dad+1;
 	while(son <= end)
 	{
-		if(arr[son+1]>arr[son])
+		if(son+1 <= end && arr[son+1]>arr[son])
 			son ++;
 		if(arr[son]<=arr[dad])
 			return;
@@ -24,10 +24,10 @@ void heap_sort(int arr[] ,int n)
 {
 	for(int i = n/2 - 1 ; i >= 0 ; i--)
 		Adjust(arr,i,n-1);
-	for(int i = n ; i >= 0 ; i --)
+	for(int i = n -1 ; i > 0 ; i --)
 	{
 		swap(arr[0], arr[i]);
-		Adjust(arr,0,i);
+		Adjust(arr,0,i-1);
 	}
 	
 }
