@@ -44,10 +44,11 @@ QuickSort(int arr[] , int left ,int right)
 	int k = arr[left];
 	while(i < j)
 	{
-		while(arr[j]>=key)
+		while(i<j&&arr[j]>=key)
 			j--;
-		while(arr[i]<=key)
+		while(i<j&&arr[i]<=key)
 			i++;
+		if(i<j)
 		swap(arr[i],arr[j]);
 	}
 	swap(arr[i],arr[left]);
