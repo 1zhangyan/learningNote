@@ -22,8 +22,10 @@ void Adjust(int arr[] , int start , int end)
 
 void heap_sort(int arr[] ,int n)
 {
+	//这是个建堆的过程，先建一个大顶堆
 	for(int i = n/2 - 1 ; i >= 0 ; i--)
 		Adjust(arr,i,n-1);
+        //每次交换后不需要再次建堆，只需要对当前节点往下继续调整就可以
 	for(int i = n -1 ; i > 0 ; i --)
 	{
 		swap(arr[0], arr[i]);
@@ -41,7 +43,7 @@ QuickSort(int arr[] , int left ,int right)
 	int j = right;
 	if(i >= j )
 		return ;
-	int k = arr[left];
+	int k = arr[left];//取下标的行为必然要放在异常判断的后面
 	while(i < j)
 	{
 		while(i<j&&arr[j]>=key)
