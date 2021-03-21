@@ -1,6 +1,6 @@
-# 排序
-
-## 堆排序Heapsort
+# Some Common Code for Leetcode
+## 排序
+### 堆排序Heapsort
 ```C++
 void Adjust(int arr[] , int start , int end)
 {
@@ -35,7 +35,7 @@ void heap_sort(int arr[] ,int n)
 }
 
 ```
-## QickSort 快排
+### QickSort 快排
 ```C++
 QuickSort(int arr[] , int left ,int right)
 {
@@ -58,5 +58,30 @@ QuickSort(int arr[] , int left ,int right)
 	QuickSort(arr,i+1,right);
 }
 ```
+## 链表
 
-## 归并排序
+
+## 树
+### 二叉树遍历 
+```C++
+void Travel(TreeNode * root)
+{
+	if(root == nullptr)
+		return;
+	stack<TreeNode*> s;
+	TreeNode*p = root;
+	while(s.empty()|| p != nullptr)
+	{
+		if(p)
+		{
+			//visit(p);//If you want to travel in a pre-order then put the row here
+			s.push(p);
+			p = p->left;
+		}
+		//visit(p);//If you want to travel in a in-order then put the row here
+		p = s.top();
+		s.pop();
+		p = p->right;
+	}
+}
+```
