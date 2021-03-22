@@ -33,8 +33,8 @@
   - 报文体  
 **请求方法**  
 Get和Post的区别？
-
-
+- Get 参数放在header,幂等有缓存,参数也会缓存.header和body一起发.
+- Post 参数放在body,不幂等没有缓存参数没有缓存.先发header响应100再发body.
 **请求头字段**  
 Accept:表示接受资源类型 
 Referer:从哪里跳转来的
@@ -61,6 +61,8 @@ Expires和Cache-Control都是强缓存相关字段,资源没过期就命中强�
 在早期的HTTP/1.0中，每次http请求都要创建一个连接，而创建连接的过程需要消耗资源和时间，为了减少资源消耗，缩短响应时间，就需要重用连接。在后来的HTTP/1.0中以及HTTP/1.1中，引入了重用连接的机制，就是在http请求头中加入Connection: keep-alive来告诉对方这个请求响应完成后不要关闭，下一次咱们还用这个请求继续交流。协议规定HTTP/1.0如果想要保持长连接，需要在请求头中加上Connection: keep-alive，而HTTP/1.1默认是支持长连接的，有没有这个请求头都行。 Http1.0不支持长连接,即使发送的报头有keepalive 字段.  
 
 ***Cookie & Session***  
+cookie存客户端本地  
+session存服务器  
 
 **状态码详解**  
 1xx：返回成功  
@@ -91,10 +93,18 @@ Expires和Cache-Control都是强缓存相关字段,资源没过期就命中强�
 
 # 传输层
 ## TCP
+### 机制
+序号保证有序
+ACK保证正确
+滑动窗口 实现流量控制 GBN SR选择重传
+拥塞避免 慢开始(值数增长) 拥塞控制(达到阈值线性增长) 快重传(三个连续重复的确认,立即重传) 快恢复(三个重复,拥塞窗口减半,线性增长,超时直接窗口为1)
 
+### 三次握手
+SYN = 1 seq = x, SYN = 1 ACK = 1 seq = y , ACK = 1  
+### 四次挥手
+FIN = 1 , ACK , FIN =1 , ACK , 等2MSL(max segment lifetime) 怕最后的ACK没有收到 ,也让所有改连接的报文都失效  
 
-## UDP
-
+## QUIC Http2 +　UDP　
 
 # 网络层
 ## ICMP
