@@ -90,7 +90,21 @@ Reference: https://blog.csdn.net/fx677588/article/details/76401870
 ===========================   
 ## 'list'　
 ===========================  
-## 'deque'　　　　　　
+## 'deque'　
+```C++
+deque<type> deq;  // 声明一个元素类型为type的双端队列que
+deque<type> deq(size);  // 声明一个类型为type、含有size个默认值初始化元素的的双端队列que
+deque<type> deq(size, value);  // 声明一个元素类型为type、含有size个value元素的双端队列que
+deque<type> deq(mydeque);  // deq是mydeque的一个副本
+deque<type> deq(first, last);  // 使用迭代器first、last范围内的元素初始化deq
+deq[ ]：用来访问双向队列中单个的元素。
+deq.front()：返回第一个元素的引用。
+deq.back()：返回最后一个元素的引用。
+deq.push_front(x)：把元素x插入到双向队列的头部。
+deq.pop_front()：弹出双向队列的第一个元素。
+deq.push_back(x)：把元素x插入到双向队列的尾部。
+deq.pop_back()：弹出双向队列的最后一个元素。
+```
 ===========================  
 ## 'queue'　　　　　  
 ===========================  
