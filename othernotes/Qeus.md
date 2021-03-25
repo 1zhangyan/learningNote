@@ -119,6 +119,7 @@
 - CPU 100% 问题排查
 
 ## OS
+- 僵尸进程 孤儿进程 进程通信？
 - 虚拟内存的作用
 - wc命令是干什么的（统计单词数 字节数）查看隐藏文件 ls -l
 - 大端小端规则
@@ -131,7 +132,7 @@
 - close_wait 太多怎么处理？为什么会出现这种情况？
 - 讲讲三次握手，四次挥手
 ### Http
-- http 协议，报文格式？http请求行有什么？状态码有哪些？有哪些请求方法？put、post 实现上有什么区别？
+- http 协议，报文格式？http请求行有什么？状态码有哪些？有哪些请求方法？get、post 实现上有什么区别？
 - http referrer字段？（该字段的作用主要是表示链接来源，空表示直接通过浏览器访问，容易伪造）
 - http 缓存机制都有哪些？什么是 cdn？header 中涉及到缓存的字段有哪些？头部阻塞如何解决？keepalive 有什么用？http 2 有了解过么，新增了哪些功能，现在用的什么版本？1.1？
   https://blog.csdn.net/a66666_/article/details/104102448 https://blog.csdn.net/weixin_48182198/article/details/107838685?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-5&spm=1001.2101.3001.4242
