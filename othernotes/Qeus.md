@@ -11,6 +11,7 @@
 - System.out.println()是线程安全的吗 （是的，println源码之前用了synchronize(this)修饰，这个原因让效率低了，所以有了logger）。
 - 对象头占多大空间？对象除了对象头，由什么组成？
 - 强引用、弱引用、虚引用区别？
+- java配置环境的path classpath 有什么用，是干什么的？() 
 
 ### Java常用集合类
 - Collection 有什么子接口、有哪些具体的实现
@@ -84,15 +85,16 @@
 - 主键与普通索引的联系？存储上的区别？
 ### sql
 - 索引失效场景？explain执行计划关注那些字段？ref字段了解哪些级别？从索引执行效率具体说说
-- sql执行顺序？select From where group by先后顺序?
+- sql执行顺序？select From where group by先后顺序?先From笛卡尔积join 再group by，再select distinct , 再order by 最后limit
 - join 和 in 怎么选择？有什么区别？
 - union 和 union all 有什么区别？怎么选择？
-- 怎么处理 sql 慢查询？
+- 怎么处理 sql 慢查询？ 
 - 索引用得不太正常怎么处理？同时有（a，b）和（a，c）的索引，查询 a 的时候，会选哪个索引？
 - 分库分表有哪些策略？怎么保证 id 唯一？
 - 主键选随机 id、uuid 还是自增 id？为什么？主键有序无序对数据库的影响？
 ### 主从复制
 - 主从复制的过程？复制原理？怎么保证强一致性？
+
 
 ## Redis
 - Redis 数据结构、对象，使用场景
@@ -121,10 +123,12 @@
 ## OS
 - 僵尸进程 孤儿进程 进程通信？
 - 虚拟内存的作用
-- wc命令是干什么的（统计单词数 字节数）查看隐藏文件 ls -l
 - 大端小端规则
 - x86是大端还是小端，为什么?
 - 死锁的形成和规避?
+- chmod Linux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users），参数：rwx  
+  ***对目录文件的读写执行***  读：读取目录文件的内容（缺乏此权限无法ls） 写：略 执行:缺乏此权限无法cd当前目录
+- wc命令是干什么的（统计单词数 字节数）查看隐藏文件 ls -l
 
 ## Network
 ### TCP UDP
@@ -138,11 +142,20 @@
   https://blog.csdn.net/a66666_/article/details/104102448 https://blog.csdn.net/weixin_48182198/article/details/107838685?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-5&spm=1001.2101.3001.4242
 - cookie session 介绍一下
 - Https 原理？对称加密的密钥除了随机数还有什么生成方法？安全性怎么保证？ca证书怎么校验
+- http 怎么解决粘包问题  contentype 限定大小 加分隔符?
 
-
+### TCP/IP
+- TELNET 底层是TCP
+- SCTP
+- Ping ICMP
+- TraceRoute UDP 
+- QUIC
 ## 数据结构
 - 红黑树知道吗？平衡二叉搜索树的结构？
-
+- 红黑树的应用场景？
+- 堆排序的应用场景？
+- B+树的优点，B树的优点？
+- 拓扑排序？
 ## 设计问题
 - 一个千万的大v，发了微博，怎么通知粉丝(https://redisbook.readthedocs.io/en/latest/feature/pubsub.html)
 - 设计一个分布式id生成器，就是说，有很多计算机，从我们需要设计的这个系统里面获得唯一的id，不能出现重复
