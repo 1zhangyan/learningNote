@@ -58,6 +58,64 @@ QuickSort(int arr[] , int left ,int right)
 	QuickSort(arr,i+1,right);
 }
 ```
+## 归并排序
+
+
+```C++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void merge(vector<int>& vec, int left, int mid, int right) {
+	vector<int> helper(right - left + 1, 0);
+	int p1 = left;
+	int p2 = mid + 1;
+	int index = 0;
+	while (p1 <= mid && p2 <= right) {
+		helper[index++] = (vec[p1] < vec[p2] ? vec[p1++] : vec[p2++]);
+	}
+	while (p1 <= mid) {
+		helper[index++] = vec[p1++];
+	}
+	while (p2 <= right) {
+		helper[index++] = vec[p2++];
+	}
+
+	for (int i = 0; i < helper.size(); i++) {
+		vec[left + i] = helper[i];
+	}
+}
+
+void mergeSort(vector<int>& vec, int left, int right) {
+	if (left >= right) {
+		return;
+	}
+	int mid = left + ((right - left) >> 1);
+
+	mergeSort(vec, left, mid);
+	mergeSort(vec, mid + 1, right);
+	merge(vec, left, mid, right);
+}
+
+void mergeSort(vector<int>& vec) {
+	if (vec.size() < 2) {
+		return;
+	}
+	mergeSort(vec, 0, vec.size() - 1);
+}
+
+int main() {
+	
+	vector<int> arr = { 1,4,32,23,4,6,7,1,3,9,7,0,-1 };
+	mergeSort(arr);
+	for (int i = 0; i < arr.size(); i++) {
+		cout << arr[i] << endl;
+	}
+
+	return 0;
+}
+```
 ## 链表
 
 
