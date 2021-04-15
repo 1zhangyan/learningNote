@@ -6,6 +6,9 @@
 
 # JVM 类加载
 
+
+
+
 # 多线程
 ## ThreadPool
 
@@ -55,13 +58,13 @@ class ObjectMonitor {
 ##### 1.偏向锁: 无锁和偏向锁最后两位01 （假定只有一个线程去获取，性能最高） 
 ***获取锁的步骤***： 
   - 在当前线程栈内添加一个锁记录，锁记录里的锁标识指向锁对象。
-  - 通过CAS设置锁对象的markword存储当前线程地址
+  - 通过CAS设置锁对象的markword存储当前线程地址  
 ***锁释放步骤***：拿到当前线程栈内的所有的锁记录，释放最后一条，检查锁对象是偏向状态就什么都不做，意味着就算是释放了，锁对象还是保留了偏向状态。下次该线程再次进入的时候，对比一下如果偏向自己，就不需要CAS。
 
 ##### 2.轻量级锁：（假定没有竞争，线程之间交替运行）
 ***获取锁的步骤***  
 在当前线程栈内添加一个锁记录，锁记录里的锁标识指向锁对象。锁对象生成一条无锁状态的markword,displacedmarkword，让线程栈内的锁记录保存这个markword,用CAS将对象头设置成持有轻量级锁的状态. 
-锁重入:执行上述步骤,CAS失效,检查markword指向当前线程空间,判断是锁重入,将空的displacedmarkworod加入线程栈的当前锁记录,通过锁记录的条数记录锁重入次数.否则就是锁升级.
+锁重入:执行上述步骤,CAS失效,检查markword指向当前线程空间,判断是锁重入,将空的displacedmarkworod加入线程栈的当前锁记录,通过锁记录的条数记录锁重入次数.否则就是锁升级.  
 ***释放锁的步骤***  
 找到锁记录,将锁记录指针设置为null,判断displacedmarkword是空就直接释放.
 非空,用CAS将displacedmarkword放入对象头中。释放完。
@@ -75,18 +78,18 @@ class ObjectMonitor {
 - 持锁对象执行wait方法,需要一个队列维护.
 - 发生并发竞争  
 
-
 ## CAS
 判断内存地址的值是不是期望值 lock锁住总线.
 逻辑 : 获取一个值 再用这个值和原来的值比较如果相同则更新.  
 ABA问题:AtomicMarkableReference AtomicStampedReference加时间戳和加标志位
-
 
 ## AQS 
 内部维护了FIFO双向队列
 voliate 修饰的state标志是否持有锁
 独占模式 共享模式
 ## Reentrandlock
+
+
 ## CountdownLatch/CyclicBarrier/Semaphore
 ## AtuomaticLong 
 ## LongAdder
