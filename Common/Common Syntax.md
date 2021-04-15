@@ -108,7 +108,14 @@ deq.pop_back()：弹出双向队列的最后一个元素。
 ===========================  
 ## 'queue'　　　　　  
 ===========================  
-## 'set'　　　　　　 
+## 'set'　
+unordered_set<char>lookset;
+lookset.find(s[right]) == lookset.end()
+lookset.insert(s[right]);
+lookset.erase(s[left]);　　
+lookset.size()
+
+　　　 
 ===========================  
 ## 'string'　  　　　　
 ===========================  
