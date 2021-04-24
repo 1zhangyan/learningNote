@@ -10,6 +10,11 @@
 
 
 # 多线程
+
+## 线程的实现
+windows和Linux上使用的是轻量级进程，本质上是内核级线程。使用一对一的模型，一条java线程对应一条系统线程。  
+java线程是抢占式的线程，有优先级。但是优先级不靠谱，windows中线程有自己的优先级，可能不会按照java中的优先级运行。  
+
 ## ThreadLocal
 ThreadLoacl 有一个静态内部类 ThreadLocalMap，其 Key 是 ThreadLocal 对象，值是 Entry 对象，Entry 中只有一个 Object 类的 vaule 值。ThreadLocal 是线程共享的，但 ThreadLocalMap 是每个线程私有的。ThreadLocal 主要有 set、get 和 remove 三个方法。   
 - 脏数据：线程池线程复用，得到前一个没有销毁的Threadlocal
@@ -103,7 +108,7 @@ class ObjectMonitor {
 - 发生并发竞争  
 
 ## CAS
-判断内存地址的值是不是期望值 lock锁住总线,多核CPU时候极大影响性能
+判断内存地址的值是不是期望值 lock锁住总线,多核CPU时候极大影响性能。
 逻辑 : 获取一个值 再用这个值和原来的值比较如果相同则更新.  
 ABA问题:AtomicMarkableReference AtomicStampedReference加时间戳和加标志位
 
@@ -117,10 +122,15 @@ voliate 修饰的state标志是否持有锁
 tryAcquireShared()方法，这个方法自己检查上下文是否支持获取共享锁，如果支持再进行获取。
 返回值小于0获取失败，进入等待队列，等于零获取成功但是无法唤醒后继节点，大于0标识获取成功并且可以唤醒后继的所有节点。
 
-## Reentrandlock
+## Lock
+## Atomic
 ## CountdownLatch/CyclicBarrier/Semaphore
-## AtuomaticLong 
 ## LongAdder
+
+
+## Hashmap(线程不安全)
+
+
 ## ConcurrentHashmap
 - 结构：数组+链表+红黑树 Node结构（key,value,next,hash）  
 ***hash值一般大于0***红黑树的代理节点treebinhash值是-2，扩容时标志节点hash值是-1.  
