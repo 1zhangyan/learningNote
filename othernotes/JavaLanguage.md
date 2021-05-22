@@ -112,6 +112,12 @@ class ObjectMonitor {
 逻辑 : 获取一个值 再用这个值和原来的值比较如果相同则更新.  
 ABA问题:AtomicMarkableReference AtomicStampedReference加时间戳和加标志位
 
+## Locksupport
+https://blog.csdn.net/hengyunabc/article/details/28126139  
+park/unpark实现原理：互斥锁加上条件变量实现。维护counter值，作为状态，CAS判断counter是否>0即可用。不可用则等待在条件变量上。  
+互斥锁和条件变量合作使用，互斥锁保证每次只有一个线程来改变条件变量。条件变量是通知模式。
+
+
 ## AQS 
 内部维护了FIFO双向队列  
 voliate 修饰的state标志是否持有锁  
