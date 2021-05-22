@@ -1,71 +1,54 @@
-using MoreMountains.Tools;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
 {
-public class miniMapCamera : MonoBehaviour {
-    public Camera minicamera;
-    public Transform miniplayerIcon;//小地图人物图标
-    public Transform maxplayerIcon;
-    public  GameObject maxmap;//大地图
-    public GameObject minimap;//小地图
-    public int mapswapflag;
-    // Use this for initialization
-    // protected Character player;
+    /// <summary>
+    /// Add this class to a GameObject to have it play a background music when instanciated.
+    /// Careful : only one background music will be played at a time.
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Sound/BackgroundMusic")]
+    public class BackgroundMusic : MMSingleton<BackgroundMusic> 
+    {
+        /// the background music
+        [Tooltip("the audio clip to use as background music")]
+        public AudioClip SoundClip0;
+        public AudioClip SoundClip1;
+        public AudioClip SoundClip2;
 
-    void Awake()
-    {
-       
-    }
+        protected AudioSource _source;
 
-    void Start () {
-        OpenMinimap();
-	}
+        /// <summary>
+        /// Gets the AudioSource associated to that GameObject, and asks the GameManager to play it.
+        /// </summary>
 
-	public void OpenMaxmap()
-    {
-        maxmap.gameObject.SetActive(true);
-        minimap.gameObject.SetActive(false);
-        mapswapflag = 1;
-    }
- 
-    public void OpenMinimap()
-    {
-        maxmap.gameObject.SetActive(false);
-        minimap.gameObject.SetActive(true);
-        mapswapflag = 0;
-    }
-    
-    public void SwapMap(Character player)
-    {
-        if(mapswapflag == 1)
+        public void SwapBGM(int teleportId)
         {
-            minicamera.transform.position = new Vector3(player.transform.position.x, (minicamera.transform.position.y)/3*2, player.transform.position.z);
-            OpenMinimap();
-            //miniplayerIcon.eulerAngles = new Vector3(0, 0, -player.transform.eulerAngles.y);
-        }
-        else
-        {
-            minicamera.transform.position = new Vector3(player.transform.position.x, (minicamera.transform.position.y)*3/2, player.transform.position.z);
-            OpenMaxmap();
-            //maxplayerIcon.eulerAngles = new Vector3(0, 0, -player.transform.eulerAngles.y);
-        }
-    }
+            if(teleportId == 0||teleportId == 3)
+                BindAndPlay(SoundClip1);
+            if(teleportId == 1)
+                BindAndPlay(SoundClip0);
+            if(teleportId == 2)
+                BindAndPlay(SoundClip2);
 
-	// Update is called once per frame
-	void Update () {
-        Character player = LevelManager.Instance.Players[0];
-        minicamera.transform.position = new Vector3(player.transform.position.x, minicamera.transform.position.y, player.transform.position.z);
-        if(mapswapflag == 0)
-            miniplayerIcon.eulerAngles = new Vector3(0, 0, -player.transform.eulerAngles.y);
-        else 
-            maxplayerIcon.eulerAngles = new Vector3(0, 0, -player.transform.eulerAngles.y);
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-           SwapMap(player);
         }
+        protected virtual void BindAndPlay(AudioClip SoundClip)
+        {
+            
+            _source.clip = SoundClip;
+            SoundManager.Instance.PlayBackgroundMusic(_source);
+        }
+
+        protected virtual void Start()
+        {
+            _source = gameObject.AddComponent<AudioSource>() as AudioSource;
+            _source.playOnAwake = false;
+            _source.spatialBlend = 0;
+            _source.rolloffMode = AudioRolloffMode.Logarithmic;
+            _source.loop = true;
+            BindAndPlay(SoundClip1);
+        }
+
     }
-}
 }
