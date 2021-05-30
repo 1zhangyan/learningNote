@@ -1,78 +1,44 @@
-﻿rivate string ColorToHex(Color color) //十进制转十六进制
-        {
-            int r = Mathf.RoundToInt(color.r * 255.0f);
-            int g = Mathf.RoundToInt(color.g * 255.0f);
-            int b = Mathf.RoundToInt(color.b * 255.0f); 
-            int a = Mathf.RoundToInt(color.a * 255.0f);
-            string hex = string.Format("{0:X2}{1:X2}{2:X2}", r, g, b);
-            return hex;
-        }
-		private IEnumerator Typing(string text)
-        {
-			float dt = 0.007f;//打字间隔时间
-        	float showingTime = 1f;//显示使用的时间
-            float Startime = Time.time, aTime, dTime = Time.time;
-            //-----
-            int index = 0;
-            float timeScale;b 
-            int a = 0;
-            bool start = false;
-            //-----
-            if (centerShowText)
-            {
-                while (index < text.Length || a < 255)
+﻿using MoreMountains.Tools;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MoreMountains.TopDownEngine
+{
+public class FocusMapCamera : MonoBehaviour {
+    public Camera fucoscamera;
+    public Transform fucosplayerIcon;
+    public  GameObject fucosmap;
+    public  GameObject fucosObject;
+    
+    // Use this for initialization
+    // protected Character player;
+
+    void Awake()
+    {
+       fucosmap.SetActive(false);
+    }
+
+    void Start () {
+       
+	}
+
+    public void SetFocusObj(GameObject inputObj)
+    {
+        fucosObject = inputObj;
+    }
+	public void ShowFucosMap()
+    {
+            if (fucosmap!= null)
                 {
-                    centerShowText.text = "";
-                    timeScale = 256 / (index * showingTime);
-                    aTime = (Time.time - Startime) * timeScale;
-                    for (int i = 0; i <= index && i < text.Length; i++)
-                    {
-                        a = (int)(aTime * (index - i));
-                        a = Mathf.Clamp(a, 0, 255);
-    
-                        if (a == 255 && i == 0 && start == false)
-                        {
-                            centerShowText.text += "<color=#" + ColorToHex(centerShowText.color) + "ff>";
-                            start = true;
-                        }
-                        if (a == 255 && start)
-                        {
-                            centerShowText.text += text[i];
-                            continue;
-                        }
-                        if (a != 255 && start)
-                        {
-                            start = false;
-                            centerShowText.text += "</color>";
-                        }
-    
-                        string aStr = Convert.ToString(a, 16);
-                        aStr = (aStr.Length == 1 ? "0" : "") + aStr;
-                        centerShowText.text += "<color=#" + ColorToHex(centerShowText.color) + aStr + ">" + text[i] + "</color>";
-                    }
-                    if (a == 255 && start)
-                        centerShowText.text += "</color>";
-                    if (Time.time - dTime >= dt)
-                    {
-                        dTime = Time.time;
-                        index++;
-                    }
-                    yield return 0;
+                    fucoscamera.transform.position = new Vector3(fucosObject.transform.position.x, fucoscamera.transform.position.y, fucosObject.transform.position.z); 
+                    fucosmap.SetActive(true);
                 }
-            }
-        }
-		public void Setinvalid()
-        {
-            centerShowText.gameObject.SetActive(false);
-        } 
-		public void Play(string text)
-        {
-            StartCoroutine(Typing(text));
-        }   
-		public void UpdatecenterShowText(string showingText)
-		{
-			centerShowText.gameObject.SetActive(true);
-            Play(showingText);
-            Invoke("Setinvalid" , dissapearTime);
-			
-		}
+    }
+ 
+	// Update is called once per frame
+	void Update () {
+        ShowFucosMap();
+    }
+}
+}
