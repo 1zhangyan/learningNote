@@ -32,7 +32,6 @@ class ValidateStackSequences {
     1。两次遍历 顺序逆序，取最大值
     2。单次遍历，但是更新前序
 **/
-
 class Candy {
     public: int candy(vector<int>& ratings) {
         vector<int> pre(ratings.size());
@@ -278,6 +277,34 @@ class SpiralOrder {
         return re;
     }
 };
+
+
+/**
+ * 101 对称二叉树
+ * 递归判断 p 往左走 q就往右走
+ */
+class IsSymmetric {
+public:
+    bool check(TreeNode* p, TreeNode* q) {
+        if (p == nullptr && q == nullptr) {
+            return true;
+        }
+        if (p == nullptr && q != nullptr) {
+            return false;
+        }
+        if (q == nullptr && p != nullptr) {
+            return false;
+        }
+        if( q->val != p->val ){
+            return false;
+        }
+        return check(p->left, q->right) && check(p->right , q->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return check(root, root);
+    }
+};
+
 
 
 int main () {
