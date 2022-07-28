@@ -395,6 +395,44 @@ public:
     }
 };
 
+/**
+ * 151 颠倒字符串中的单词
+ * 先分割后颠倒
+ */
+class ReverseWords {
+    string reverseWords(string s) {
+        string  re = "";
+        vector<string> words;
+        int i = 0;
+        while(i < s.size()) {
+            while(i < s.size() && s[i] == ' ') {
+                i++;
+            }
+            string tmp = "";
+            bool  flag = false;
+            while(i < s.size() && s[i] != ' ') {
+                flag = true;
+                tmp.push_back(s[i]);
+                i++;
+            }
+            if (flag) {
+                words.push_back(tmp);
+            }
+        }
+        if (words.empty()) {
+            return re;
+        }
+        reverse(words.begin(),words.end());
+        for (auto word : words) {
+            re += word;
+            re.push_back(' ');
+        }
+        re.pop_back();
+        return re;
+    }
+};
+
+
 int main () {
 
 }
