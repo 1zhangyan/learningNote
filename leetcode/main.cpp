@@ -364,7 +364,36 @@ public:
     }
 };
 
+/**
+ * 139 单词拆分
+ * 简单粗暴 但是会超时
+ */
+class WordBreak {
+public:
+    bool re = false;
+    unordered_set<string> set;
 
+    void dfsFind(int index, string s) {
+        if ( index == s.size()) {
+            re = true;
+            return;
+        }
+        string tmp = "";
+        for(int i = index; i < s.size(); i++) {
+            tmp.push_back(s[i]);
+            if (set.find(tmp) != set.end()) {
+                dfsFind(i+1, s);
+            }
+        }
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        for (auto word : wordDict) {
+            set.insert(word);
+        }
+        dfsFind(0, s);
+        return re;
+    }
+};
 
 int main () {
 
