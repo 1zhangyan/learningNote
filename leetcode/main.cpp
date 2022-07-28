@@ -165,8 +165,34 @@ public:
     }
 };
 
+/**
+ *  114 二叉树展开为链表
+ *  找后继节点。左节点置为空，右节点置原来的左节点。原来的右节点找它的前驱，将它赋给前驱的右节点。
+ */
+class Flatten {
+public:
+    void flatten(TreeNode* root) {
+        flattenOneNode(root);
+    }
+    void flattenOneNode(TreeNode *root) {
+        if (root == nullptr) {
+            return;
+        }
+        if (root->left == nullptr) {
+            flattenOneNode(root->right);//need to deal
+            return;
+        }
+        TreeNode * cur = root->left;
+        while(cur->right) {
+            cur = cur->right;
+        }
+        cur->right = root->right;
+        root->right = root->left;
+        root->left = nullptr; // need to set null!
+        flattenOneNode(root->right);
+    }
+};
 
 int main (){
-    FractionToDecimal fractionToDecimal;
-    cout << fractionToDecimal.fractionToDecimal(-1, -2147483648);
+
 }
