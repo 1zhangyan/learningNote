@@ -245,12 +245,41 @@ public:
     }
 };
 
-
+/**
+ * 54 螺旋顺序
+ * 层次遍历，递归进行，需要注意单行单列的情况，不能遍历两次
+ */
+class SpiralOrder {
+    vector<int> re;
+    void dfsSpiral(vector<vector<int>>& matrix, int x1, int y1, int x2, int y2) {
+        if (x1 > x2 || y1 > y2 || x1 < 0 || x2 >= matrix[0].size() || y1 < 0 || y2 >= matrix.size()) {
+            return;
+        }
+        for (int i = x1; i <= x2; i++) {
+            re.push_back(matrix[y1][i]);
+        }
+        for(int i = y1+1; i <=y2; i++) {
+            re.push_back(matrix[i][x2]);
+        }
+        if (y1 != y2) {
+            for(int i = x2 -1; i >= x1; i--) {
+                re.push_back(matrix[y2][i]);
+            }
+        }
+        if (x1 != x2) {
+            for(int i = y2-1; i > y1; i--) {
+                re.push_back(matrix[i][x1]);
+            }
+        }
+        dfsSpiral(matrix,x1+1,y1+1,x2-1,y2-1);
+    }
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        dfsSpiral(matrix, 0,0,matrix[0].size()-1, matrix.size()-1);
+        return re;
+    }
+};
 
 
 int main () {
-    RestoreIpAddresses res;
-    for (auto s : res.restoreIpAddresses("101023")) {
-        cout<<s<<endl;
-    }
+
 }
