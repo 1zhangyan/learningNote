@@ -193,6 +193,64 @@ public:
     }
 };
 
-int main (){
+/**
+ * 93 复原 IP 地址
+ **/
+class RestoreIpAddresses {
+public:
+    // 0.1.2.201
+    vector<string> results;
+    string regionS;
 
+    void dfsFind(int index, string curIp, int segment) {
+        if (segment == 4) {
+            if (index >= regionS.size()){
+                results.push_back(curIp);
+            }
+            return;
+        }
+        if (index >= regionS.size()) {
+            return;
+        }
+
+        if (regionS[index] == '0') {
+            curIp.push_back('0');
+            if (segment != 3) {
+                curIp.push_back('.');
+            }
+            dfsFind(index+1, curIp, segment+1);
+            return;
+        }
+        int curNum = 0;
+        for (int i = index; i < regionS.size(); i++) {
+            curNum = curNum*10 + regionS[i] - '0';
+            if (curNum > 0 && curNum < 256) {
+                string tmpIp = curIp;
+                tmpIp += to_string(curNum);
+                if (segment != 3) {
+                    tmpIp.push_back('.');
+                }
+                dfsFind(i+1,tmpIp,segment+1);
+            } else {
+                break;
+            }
+        }
+    }
+
+    vector<string> restoreIpAddresses(string s) {
+        regionS = s;
+        string curIp = "";
+        dfsFind(0, curIp, 0);
+        return results;
+    }
+};
+
+
+
+
+int main () {
+    RestoreIpAddresses res;
+    for (auto s : res.restoreIpAddresses("101023")) {
+        cout<<s<<endl;
+    }
 }
