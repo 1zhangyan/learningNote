@@ -306,6 +306,36 @@ public:
 };
 
 
+/**
+ * 129 求根节点到叶节点之和
+ * 深度优先遍历
+ * 回退
+ */
+class SumNumbers {
+public:
+    long result;
+    void dfsSearch(TreeNode* root, string tmp) {
+        tmp += ('0' + root->val);
+        if (root -> left) {
+            dfsSearch(root->left, tmp);
+        }
+        if (root -> right) {
+            dfsSearch(root->right, tmp);
+        }
+        if (root->right == nullptr && root->left == nullptr) {
+            result += stoi(tmp);
+        }
+        tmp.pop_back();
+    }
+    int sumNumbers(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        dfsSearch(root, "");
+        return result;
+    }
+};
+
 
 int main () {
 
