@@ -67,7 +67,7 @@ class Candy {
 };
 
 /**
- * 166. 分数到小数
+ * 166 分数到小数
  */
 class FractionToDecimal {
 public:
@@ -335,6 +335,35 @@ public:
         return result;
     }
 };
+
+
+/**
+ * 98 验证二叉搜索树
+ * 中序遍历
+ */
+class IsValidBST {
+public:
+    bool isValidBST(TreeNode* root) {
+        long pre = (long long )INT_MIN-1;
+        stack<TreeNode*> s;
+        TreeNode * p = root;
+        while(!s.empty() || p) {
+            while (p) {
+                s.push(p);
+                p = p->left;
+            }
+            p = s.top();
+            if (p->val <= pre) {
+                return false;
+            }
+            pre = p->val;
+            s.pop();
+            p = p->right;
+        }
+        return true;
+    }
+};
+
 
 
 int main () {
