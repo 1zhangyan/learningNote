@@ -116,6 +116,55 @@ public:
 
 };
 
+/**
+ * 138 带随机指针的链表复制
+ * 先复制 在拆分
+ */
+class CopyRandomList {
+public:
+    class Node {
+    public:
+        int val;
+        Node* next;
+        Node* random;
+
+        Node(int _val) {
+            val = _val;
+            next = NULL;
+            random = NULL;
+        }
+    };
+
+    Node* copyRandomList(Node* head) {
+        Node * cur = head;
+        while(cur) {
+            Node* tmp = new Node(cur->val);
+            tmp->next = cur->next;
+            cur->next = tmp;
+            cur = tmp->next;
+        }
+        cur = head;
+        while(cur) {
+            if (cur->random) {
+                cur->next->random = cur->random->next;
+            } else {
+                cur->next->random = nullptr;
+            }
+            cur = cur->next->next;
+        }
+        Node * dumpHead = new Node(0);
+        Node * p = dumpHead;
+        cur = head;
+        while(cur) {
+            p->next=cur->next;
+            cur->next = cur->next->next;
+            cur = cur->next;
+            p = p->next;
+        }
+        return dumpHead->next;
+    }
+};
+
 
 int main (){
     FractionToDecimal fractionToDecimal;
