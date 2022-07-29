@@ -510,11 +510,21 @@ int minSubArrayLen(int target, vector<int>& nums) {
    int right = 0;
    int total = 0;
    for (int i = 0 ; i < nums.size(); i++) {
-        total += nums[i];
+        right = i;
+        total += nums[right];
         if (total >= target) {
+            while (total >= target && left < right) {
+                total-=nums[left];
+                left++;
+            }
+            if (total < target) {
+                left --;
+                total+=nums[left];
+            }
             minLen = min(minLen, right-left+1);
         }
    }
+    return minLen > nums.size() ? 0: minLen;
 }
 /**
  * 121 买卖股票的最佳时机
