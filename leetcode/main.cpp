@@ -436,7 +436,7 @@ class ReverseWords {
  * 402 移掉 K 位数字
  * 单调栈，从左到右，找单调递增的最大的数
  */
- class RemoveKdigits {
+class RemoveKdigits {
     public:
         string removeKdigits(string num, int k) {
          if (k == num.size()) {
@@ -471,9 +471,36 @@ class ReverseWords {
  };
 
 
+/**
+ * 79 单词搜索
+ * 部分用例超时
+ */
+
+bool dfs(vector<vector<char>>& board,vector<vector<bool>> flag,string word,int x, int y, int index) {
+    if (x >= board.size() || y >= board[0].size() || x < 0|| y< 0){
+        return false;
+    }
+    if (board[x][y] != word[index] || flag[x][y] == true) {
+        return false;
+    }
+    if (index == word.size() -1) {
+        return true;
+    }
+    flag[x][y] = true;
+    bool re = dfs(board,flag,word,x+1,y,index+1)||dfs(board,flag,word,x-1,y,index+1)||dfs(board,flag,word,x,y+1,index+1)||dfs(board,flag,word,x,y-1,index+1);
+    flag[x][y] = false;
+    return re;
+}
+bool exist(vector<vector<char>>& board, string word) {
+    vector<vector<bool>> flag ( board.size(),vector<bool>(board[0].size(), false));
+    for (int i = 0 ; i < board.size(); i++) {
+        for (int j = 0 ; j < board[0].size() ; j ++) {
+            if (dfs(board,flag,word,i,j,0)) return true;
+        }
+    }
+    return false;
+}
 
 int main () {
-    RemoveKdigits r;
-    cout<<r.removeKdigits("123456789",3)<<endl;
 
 }
