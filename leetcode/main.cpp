@@ -470,36 +470,73 @@ class RemoveKdigits {
      }
  };
 
-
 /**
  * 79 单词搜索
  * 部分用例超时
  */
-
-bool dfs(vector<vector<char>>& board,vector<vector<bool>> flag,string word,int x, int y, int index) {
-    if (x >= board.size() || y >= board[0].size() || x < 0|| y< 0){
-        return false;
-    }
-    if (board[x][y] != word[index] || flag[x][y] == true) {
-        return false;
-    }
-    if (index == word.size() -1) {
-        return true;
-    }
-    flag[x][y] = true;
-    bool re = dfs(board,flag,word,x+1,y,index+1)||dfs(board,flag,word,x-1,y,index+1)||dfs(board,flag,word,x,y+1,index+1)||dfs(board,flag,word,x,y-1,index+1);
-    flag[x][y] = false;
-    return re;
-}
-bool exist(vector<vector<char>>& board, string word) {
-    vector<vector<bool>> flag ( board.size(),vector<bool>(board[0].size(), false));
-    for (int i = 0 ; i < board.size(); i++) {
-        for (int j = 0 ; j < board[0].size() ; j ++) {
-            if (dfs(board,flag,word,i,j,0)) return true;
+class dfsWordSearch {
+    bool dfs(vector<vector<char>>& board,vector<vector<bool>> flag,string word,int x, int y, int index) {
+        if (x >= board.size() || y >= board[0].size() || x < 0|| y< 0){
+            return false;
         }
+        if (board[x][y] != word[index] || flag[x][y] == true) {
+            return false;
+        }
+        if (index == word.size() -1) {
+            return true;
+        }
+        flag[x][y] = true;
+        bool re = dfs(board,flag,word,x+1,y,index+1)||dfs(board,flag,word,x-1,y,index+1)||dfs(board,flag,word,x,y+1,index+1)||dfs(board,flag,word,x,y-1,index+1);
+        flag[x][y] = false;
+        return re;
     }
-    return false;
+    bool exist(vector<vector<char>>& board, string word) {
+        vector<vector<bool>> flag ( board.size(),vector<bool>(board[0].size(), false));
+        for (int i = 0 ; i < board.size(); i++) {
+            for (int j = 0 ; j < board[0].size() ; j ++) {
+                if (dfs(board,flag,word,i,j,0)) return true;
+            }
+        }
+        return false;
+    }
+};
+
+/**
+ * 209 长度最小的子数组
+ */
+int minSubArrayLen(int target, vector<int>& nums) {
+   int minLen = nums.size() + 1;
+   int left = 0;
+   int right = 0;
+   int total = 0;
+   for (int i = 0 ; i < nums.size(); i++) {
+        total += nums[i];
+        if (total >= target) {
+            minLen = min(minLen, right-left+1);
+        }
+   }
 }
+/**
+ * 121 买卖股票的最佳时机
+ */
+class MaxProfit {
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.size() < 2) {
+            return 0;
+        }
+        int maxProf = prices[1] - prices[0];
+        int minPrice = min(prices[0], prices[1]);
+        for (int i = 2; i < prices.size(); i++) {
+            maxProf = max(maxProf, prices[i] - minPrice);
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            }
+        }
+        return maxProf > 0? maxProf:0;
+    }
+};
+
 
 int main () {
 
