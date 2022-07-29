@@ -432,7 +432,48 @@ class ReverseWords {
     }
 };
 
+/**
+ * 402 移掉 K 位数字
+ * 单调栈，从左到右，找单调递增的最大的数
+ */
+ class RemoveKdigits {
+    public:
+        string removeKdigits(string num, int k) {
+         if (k == num.size()) {
+             return "0";
+         }
+         string re = "";
+         stack<int> s;
+         set<int> erasePos;
+         s.push(0);
+         for(int i = 1; i < num.size(); i++) {
+             while (!s.empty() && erasePos.size() < k && num[s.top()] > num[i]) {
+                 erasePos.insert(s.top());
+                 s.pop();
+             }
+             s.push(i);
+         }
+         while (erasePos.size() < k) {
+             erasePos.insert(s.top());
+             s.pop();
+         }
+         for(int i = 0; i < num.size(); i++) {
+             if (erasePos.find(i) == erasePos.end()) {
+                 if (re == "" && num[i] == '0'){
+                     continue;
+                 }
+                 re.push_back(num[i]);
+             }
+         }
+         if (re == "") return "0";
+         return re;
+     }
+ };
+
+
 
 int main () {
+    RemoveKdigits r;
+    cout<<r.removeKdigits("123456789",3)<<endl;
 
 }
