@@ -599,7 +599,35 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
     return false;
 }
 
+/**
+ *  165 比较版本号
+ *  循环比较，如果不存在则把数字置为 0
+ *  比较每次取的数字大小 ，统一模型
+ */
+int compareVersion(string version1, string version2) {
+    int i = 0;
+    int j = 0;
+    while(i < version1.size() || j < version2.size()) { //need attention!
+        long x = 0;
+        while(i < version1.size() && version1[i] != '.') {
+            x = x * 10 + version1[i] - '0';
+            i++;
+        }
+        i++;
+        long y = 0;
+        while(j < version2.size() && version2[j] != '.') {
+            y = y * 10 + version2[j] - '0';
+            j++;
+        }
+        j++;
+        if (x != y) {
+            return x>y?1:-1;
+        }
+    }
+    return 0;
+}
 
 int main () {
-
+    cout<<compareVersion("1.2147483647"
+                   ,"1.2147483647");
 }
