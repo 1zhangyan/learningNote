@@ -576,12 +576,30 @@ int findPeakElement(vector<int>& nums) {
     return left;
 }
 
+/**
+ * offer 04 二维数组的查找
+ * 从右上方开始
+ */
+bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+    if (matrix.size() < 1 || matrix[0].size() < 1) {
+        return false;
+    }
+    int row = 0;
+    int col = matrix[0].size() -1;
+    while(row >=0 && col < matrix[0].size() && col >=0 && row < matrix.size()) {
+        if (target == matrix[row][col]) {
+            return true;
+        }
+        if (matrix[row][col] > target) {
+            col --;
+        } else {
+            row ++;
+        }
+    }
+    return false;
+}
+
 
 int main () {
-    vector<int> nums;
-    nums.push_back(1);
-    nums.push_back(2);
-    nums.push_back(3);
-    nums.push_back(1);
-    cout<<findPeakElement(nums);
+
 }
