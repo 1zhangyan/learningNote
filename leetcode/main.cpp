@@ -547,7 +547,41 @@ public:
     }
 };
 
+/**
+ * 162 寻找峰值
+ * 二分法，只要去单调递增的地方就可
+ */
+int findPeakElement(vector<int>& nums) {
+    int left = 0;
+    int right = nums.size() - 1;
+    if (nums.size() == 1) {
+        return 0;
+    }
+    while(left <= right) {
+        int mid = (left + right) / 2;
+        if (mid <= 0) {
+            return nums[0] > nums[1] ? 0 : 1;
+        }
+        if (mid >= nums.size()-1) {
+            return nums[nums.size()-1] > nums[nums.size()-2] ? nums.size()-1 : nums.size()-2;
+        }
+        if (nums[mid] > nums[mid + 1] && nums[mid] > nums[mid - 1]) {
+            return mid;
+        } else if (nums[mid] < nums[mid + 1]) {
+            left = mid+1;
+        } else {
+            right = mid-1;
+        }
+    }
+    return left;
+}
+
 
 int main () {
-
+    vector<int> nums;
+    nums.push_back(1);
+    nums.push_back(2);
+    nums.push_back(3);
+    nums.push_back(1);
+    cout<<findPeakElement(nums);
 }
