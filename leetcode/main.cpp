@@ -7,15 +7,15 @@ using namespace std;
  * 模拟法验证
  */
 class ValidateStackSequences {
-    public:
-    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+public:
+    bool validateStackSequences(vector<int> &pushed, vector<int> &popped) {
         stack<int> s;
         int curPop = 0;
-        for(int pushElement : pushed) {
+        for (int pushElement: pushed) {
             s.push(pushElement);
-            while(!s.empty() && curPop <popped.size() && s.top() == popped[curPop]) {
+            while (!s.empty() && curPop < popped.size() && s.top() == popped[curPop]) {
                 s.pop();
-                curPop ++;
+                curPop++;
             }
         }
         if (!s.empty()) {
@@ -33,34 +33,35 @@ class ValidateStackSequences {
     2。单次遍历，但是更新前序
 **/
 class Candy {
-    public: int candy(vector<int>& ratings) {
+public:
+    int candy(vector<int> &ratings) {
         vector<int> pre(ratings.size());
         vector<int> last(ratings.size());
-        for(int i = 0; i < ratings.size(); i++) {
+        for (int i = 0; i < ratings.size(); i++) {
             if (i == 0) {
-                pre [i] = 1;
+                pre[i] = 1;
             } else {
-                if (ratings[i] > ratings[i-1]) {
-                    pre[i] = pre[i-1] + 1;
+                if (ratings[i] > ratings[i - 1]) {
+                    pre[i] = pre[i - 1] + 1;
                 } else {
                     pre[i] = 1;
                 }
             }
         }
-        for(int i = ratings.size()-1; i >=0 ; i--) {
-            if (i == ratings.size()-1) {
+        for (int i = ratings.size() - 1; i >= 0; i--) {
+            if (i == ratings.size() - 1) {
                 last[i] = 1;
             } else {
-                if (ratings[i] > ratings[i+1]) {
-                    last[i] = last[i+1] + 1;
+                if (ratings[i] > ratings[i + 1]) {
+                    last[i] = last[i + 1] + 1;
                 } else {
                     last[i] = 1;
                 }
             }
         }
         int total = 0;
-        for(int i = 0; i < ratings.size(); i++) {
-            total+= max(pre[i], last[i]);
+        for (int i = 0; i < ratings.size(); i++) {
+            total += max(pre[i], last[i]);
         }
         return total;
     }
@@ -78,7 +79,7 @@ public:
         }
         if (numerator < 0 || denominator < 0) {
             if (!(numerator < 0 && denominator < 0)) {
-                result+="-";
+                result += "-";
             }
         }
         numerator = abs(numerator);
@@ -86,26 +87,26 @@ public:
         long cur = numerator;
         unordered_map<int, int> curSet;
         if (numerator > denominator) {
-            result += to_string(numerator/denominator);
-            cur = numerator%denominator;
+            result += to_string(numerator / denominator);
+            cur = numerator % denominator;
             if (cur == 0) {
                 return result;
             }
         }
-        if(result == "") {
+        if (result == "") {
             result = "0";
         }
         result += ".";
-        while(cur != 0) {
+        while (cur != 0) {
             cur = cur * 10;
             if (curSet.find(cur) != curSet.end()) {
-                result.insert(curSet[cur],"(");
+                result.insert(curSet[cur], "(");
                 result += ")";
                 return result;
             }
             curSet[cur] = result.size();
-            int qoutient = cur/denominator;
-            int reminder = cur%denominator;
+            int qoutient = cur / denominator;
+            int reminder = cur % denominator;
 
             result += to_string(qoutient);
             cur = reminder;
@@ -124,8 +125,8 @@ public:
     class Node {
     public:
         int val;
-        Node* next;
-        Node* random;
+        Node *next;
+        Node *random;
 
         Node(int _val) {
             val = _val;
@@ -134,16 +135,16 @@ public:
         }
     };
 
-    Node* copyRandomList(Node* head) {
-        Node * cur = head;
-        while(cur) {
-            Node* tmp = new Node(cur->val);
+    Node *copyRandomList(Node *head) {
+        Node *cur = head;
+        while (cur) {
+            Node *tmp = new Node(cur->val);
             tmp->next = cur->next;
             cur->next = tmp;
             cur = tmp->next;
         }
         cur = head;
-        while(cur) {
+        while (cur) {
             if (cur->random) {
                 cur->next->random = cur->random->next;
             } else {
@@ -151,11 +152,11 @@ public:
             }
             cur = cur->next->next;
         }
-        Node * dumpHead = new Node(0);
-        Node * p = dumpHead;
+        Node *dumpHead = new Node(0);
+        Node *p = dumpHead;
         cur = head;
-        while(cur) {
-            p->next=cur->next;
+        while (cur) {
+            p->next = cur->next;
             cur->next = cur->next->next;
             cur = cur->next;
             p = p->next;
@@ -170,9 +171,10 @@ public:
  */
 class Flatten {
 public:
-    void flatten(TreeNode* root) {
+    void flatten(TreeNode *root) {
         flattenOneNode(root);
     }
+
     void flattenOneNode(TreeNode *root) {
         if (root == nullptr) {
             return;
@@ -181,8 +183,8 @@ public:
             flattenOneNode(root->right);//need to deal
             return;
         }
-        TreeNode * cur = root->left;
-        while(cur->right) {
+        TreeNode *cur = root->left;
+        while (cur->right) {
             cur = cur->right;
         }
         cur->right = root->right;
@@ -203,7 +205,7 @@ public:
 
     void dfsFind(int index, string curIp, int segment) {
         if (segment == 4) {
-            if (index >= regionS.size()){
+            if (index >= regionS.size()) {
                 results.push_back(curIp);
             }
             return;
@@ -217,19 +219,19 @@ public:
             if (segment != 3) {
                 curIp.push_back('.');
             }
-            dfsFind(index+1, curIp, segment+1);
+            dfsFind(index + 1, curIp, segment + 1);
             return;
         }
         int curNum = 0;
         for (int i = index; i < regionS.size(); i++) {
-            curNum = curNum*10 + regionS[i] - '0';
+            curNum = curNum * 10 + regionS[i] - '0';
             if (curNum > 0 && curNum < 256) {
                 string tmpIp = curIp;
                 tmpIp += to_string(curNum);
                 if (segment != 3) {
                     tmpIp.push_back('.');
                 }
-                dfsFind(i+1,tmpIp,segment+1);
+                dfsFind(i + 1, tmpIp, segment + 1);
             } else {
                 break;
             }
@@ -250,30 +252,32 @@ public:
  */
 class SpiralOrder {
     vector<int> re;
-    void dfsSpiral(vector<vector<int>>& matrix, int x1, int y1, int x2, int y2) {
+
+    void dfsSpiral(vector<vector<int>> &matrix, int x1, int y1, int x2, int y2) {
         if (x1 > x2 || y1 > y2 || x1 < 0 || x2 >= matrix[0].size() || y1 < 0 || y2 >= matrix.size()) {
             return;
         }
         for (int i = x1; i <= x2; i++) {
             re.push_back(matrix[y1][i]);
         }
-        for(int i = y1+1; i <=y2; i++) {
+        for (int i = y1 + 1; i <= y2; i++) {
             re.push_back(matrix[i][x2]);
         }
         if (y1 != y2) {
-            for(int i = x2 -1; i >= x1; i--) {
+            for (int i = x2 - 1; i >= x1; i--) {
                 re.push_back(matrix[y2][i]);
             }
         }
         if (x1 != x2) {
-            for(int i = y2-1; i > y1; i--) {
+            for (int i = y2 - 1; i > y1; i--) {
                 re.push_back(matrix[i][x1]);
             }
         }
-        dfsSpiral(matrix,x1+1,y1+1,x2-1,y2-1);
+        dfsSpiral(matrix, x1 + 1, y1 + 1, x2 - 1, y2 - 1);
     }
-    vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        dfsSpiral(matrix, 0,0,matrix[0].size()-1, matrix.size()-1);
+
+    vector<int> spiralOrder(vector<vector<int>> &matrix) {
+        dfsSpiral(matrix, 0, 0, matrix[0].size() - 1, matrix.size() - 1);
         return re;
     }
 };
@@ -285,7 +289,7 @@ class SpiralOrder {
  */
 class IsSymmetric {
 public:
-    bool check(TreeNode* p, TreeNode* q) {
+    bool check(TreeNode *p, TreeNode *q) {
         if (p == nullptr && q == nullptr) {
             return true;
         }
@@ -295,12 +299,13 @@ public:
         if (q == nullptr && p != nullptr) {
             return false;
         }
-        if( q->val != p->val ){
+        if (q->val != p->val) {
             return false;
         }
-        return check(p->left, q->right) && check(p->right , q->left);
+        return check(p->left, q->right) && check(p->right, q->left);
     }
-    bool isSymmetric(TreeNode* root) {
+
+    bool isSymmetric(TreeNode *root) {
         return check(root, root);
     }
 };
@@ -314,12 +319,13 @@ public:
 class SumNumbers {
 public:
     long result;
-    void dfsSearch(TreeNode* root, string tmp) {
+
+    void dfsSearch(TreeNode *root, string tmp) {
         tmp += ('0' + root->val);
-        if (root -> left) {
+        if (root->left) {
             dfsSearch(root->left, tmp);
         }
-        if (root -> right) {
+        if (root->right) {
             dfsSearch(root->right, tmp);
         }
         if (root->right == nullptr && root->left == nullptr) {
@@ -327,7 +333,8 @@ public:
         }
         tmp.pop_back();
     }
-    int sumNumbers(TreeNode* root) {
+
+    int sumNumbers(TreeNode *root) {
         if (root == nullptr) {
             return 0;
         }
@@ -343,11 +350,11 @@ public:
  */
 class IsValidBST {
 public:
-    bool isValidBST(TreeNode* root) {
-        long pre = (long long )INT_MIN-1;
-        stack<TreeNode*> s;
-        TreeNode * p = root;
-        while(!s.empty() || p) {
+    bool isValidBST(TreeNode *root) {
+        long pre = (long long) INT_MIN - 1;
+        stack<TreeNode *> s;
+        TreeNode *p = root;
+        while (!s.empty() || p) {
             while (p) {
                 s.push(p);
                 p = p->left;
@@ -374,20 +381,21 @@ public:
     unordered_set<string> set;
 
     void dfsFind(int index, string s) {
-        if ( index == s.size()) {
+        if (index == s.size()) {
             re = true;
             return;
         }
         string tmp = "";
-        for(int i = index; i < s.size(); i++) {
+        for (int i = index; i < s.size(); i++) {
             tmp.push_back(s[i]);
             if (set.find(tmp) != set.end()) {
-                dfsFind(i+1, s);
+                dfsFind(i + 1, s);
             }
         }
     }
-    bool wordBreak(string s, vector<string>& wordDict) {
-        for (auto word : wordDict) {
+
+    bool wordBreak(string s, vector<string> &wordDict) {
+        for (auto word: wordDict) {
             set.insert(word);
         }
         dfsFind(0, s);
@@ -401,16 +409,16 @@ public:
  */
 class ReverseWords {
     string reverseWords(string s) {
-        string  re = "";
+        string re = "";
         vector<string> words;
         int i = 0;
-        while(i < s.size()) {
-            while(i < s.size() && s[i] == ' ') {
+        while (i < s.size()) {
+            while (i < s.size() && s[i] == ' ') {
                 i++;
             }
             string tmp = "";
-            bool  flag = false;
-            while(i < s.size() && s[i] != ' ') {
+            bool flag = false;
+            while (i < s.size() && s[i] != ' ') {
                 flag = true;
                 tmp.push_back(s[i]);
                 i++;
@@ -422,8 +430,8 @@ class ReverseWords {
         if (words.empty()) {
             return re;
         }
-        reverse(words.begin(),words.end());
-        for (auto word : words) {
+        reverse(words.begin(), words.end());
+        for (auto word: words) {
             re += word;
             re.push_back(' ');
         }
@@ -437,64 +445,66 @@ class ReverseWords {
  * 单调栈，从左到右，找单调递增的最大的数
  */
 class RemoveKdigits {
-    public:
-        string removeKdigits(string num, int k) {
-         if (k == num.size()) {
-             return "0";
-         }
-         string re = "";
-         stack<int> s;
-         set<int> erasePos;
-         s.push(0);
-         for(int i = 1; i < num.size(); i++) {
-             while (!s.empty() && erasePos.size() < k && num[s.top()] > num[i]) {
-                 erasePos.insert(s.top());
-                 s.pop();
-             }
-             s.push(i);
-         }
-         while (erasePos.size() < k) {
-             erasePos.insert(s.top());
-             s.pop();
-         }
-         for(int i = 0; i < num.size(); i++) {
-             if (erasePos.find(i) == erasePos.end()) {
-                 if (re == "" && num[i] == '0'){
-                     continue;
-                 }
-                 re.push_back(num[i]);
-             }
-         }
-         if (re == "") return "0";
-         return re;
-     }
- };
+public:
+    string removeKdigits(string num, int k) {
+        if (k == num.size()) {
+            return "0";
+        }
+        string re = "";
+        stack<int> s;
+        set<int> erasePos;
+        s.push(0);
+        for (int i = 1; i < num.size(); i++) {
+            while (!s.empty() && erasePos.size() < k && num[s.top()] > num[i]) {
+                erasePos.insert(s.top());
+                s.pop();
+            }
+            s.push(i);
+        }
+        while (erasePos.size() < k) {
+            erasePos.insert(s.top());
+            s.pop();
+        }
+        for (int i = 0; i < num.size(); i++) {
+            if (erasePos.find(i) == erasePos.end()) {
+                if (re == "" && num[i] == '0') {
+                    continue;
+                }
+                re.push_back(num[i]);
+            }
+        }
+        if (re == "") return "0";
+        return re;
+    }
+};
 
 /**
  * 79 单词搜索
  * 部分用例超时
  */
 class dfsWordSearch {
-    bool dfs(vector<vector<char>>& board,vector<vector<bool>> flag,string word,int x, int y, int index) {
-        if (x >= board.size() || y >= board[0].size() || x < 0|| y< 0){
+    bool dfs(vector<vector<char>> &board, vector<vector<bool>> flag, string word, int x, int y, int index) {
+        if (x >= board.size() || y >= board[0].size() || x < 0 || y < 0) {
             return false;
         }
         if (board[x][y] != word[index] || flag[x][y] == true) {
             return false;
         }
-        if (index == word.size() -1) {
+        if (index == word.size() - 1) {
             return true;
         }
         flag[x][y] = true;
-        bool re = dfs(board,flag,word,x+1,y,index+1)||dfs(board,flag,word,x-1,y,index+1)||dfs(board,flag,word,x,y+1,index+1)||dfs(board,flag,word,x,y-1,index+1);
+        bool re = dfs(board, flag, word, x + 1, y, index + 1) || dfs(board, flag, word, x - 1, y, index + 1) ||
+                  dfs(board, flag, word, x, y + 1, index + 1) || dfs(board, flag, word, x, y - 1, index + 1);
         flag[x][y] = false;
         return re;
     }
-    bool exist(vector<vector<char>>& board, string word) {
-        vector<vector<bool>> flag ( board.size(),vector<bool>(board[0].size(), false));
-        for (int i = 0 ; i < board.size(); i++) {
-            for (int j = 0 ; j < board[0].size() ; j ++) {
-                if (dfs(board,flag,word,i,j,0)) return true;
+
+    bool exist(vector<vector<char>> &board, string word) {
+        vector<vector<bool>> flag(board.size(), vector<bool>(board[0].size(), false));
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
+                if (dfs(board, flag, word, i, j, 0)) return true;
             }
         }
         return false;
@@ -504,34 +514,35 @@ class dfsWordSearch {
 /**
  * 209 长度最小的子数组
  */
-int minSubArrayLen(int target, vector<int>& nums) {
-   int minLen = nums.size() + 1;
-   int left = 0;
-   int right = 0;
-   int total = 0;
-   for (int i = 0 ; i < nums.size(); i++) {
+int minSubArrayLen(int target, vector<int> &nums) {
+    int minLen = nums.size() + 1;
+    int left = 0;
+    int right = 0;
+    int total = 0;
+    for (int i = 0; i < nums.size(); i++) {
         right = i;
         total += nums[right];
         if (total >= target) {
             while (total >= target && left < right) {
-                total-=nums[left];
+                total -= nums[left];
                 left++;
             }
             if (total < target) {
-                left --;
-                total+=nums[left];
+                left--;
+                total += nums[left];
             }
-            minLen = min(minLen, right-left+1);
+            minLen = min(minLen, right - left + 1);
         }
-   }
-    return minLen > nums.size() ? 0: minLen;
+    }
+    return minLen > nums.size() ? 0 : minLen;
 }
+
 /**
  * 121 买卖股票的最佳时机
  */
 class MaxProfit {
 public:
-    int maxProfit(vector<int>& prices) {
+    int maxProfit(vector<int> &prices) {
         if (prices.size() < 2) {
             return 0;
         }
@@ -543,7 +554,7 @@ public:
                 minPrice = prices[i];
             }
         }
-        return maxProf > 0? maxProf:0;
+        return maxProf > 0 ? maxProf : 0;
     }
 };
 
@@ -551,26 +562,26 @@ public:
  * 162 寻找峰值
  * 二分法，只要去单调递增的地方就可
  */
-int findPeakElement(vector<int>& nums) {
+int findPeakElement(vector<int> &nums) {
     int left = 0;
     int right = nums.size() - 1;
     if (nums.size() == 1) {
         return 0;
     }
-    while(left <= right) {
+    while (left <= right) {
         int mid = (left + right) / 2;
         if (mid <= 0) {
             return nums[0] > nums[1] ? 0 : 1;
         }
-        if (mid >= nums.size()-1) {
-            return nums[nums.size()-1] > nums[nums.size()-2] ? nums.size()-1 : nums.size()-2;
+        if (mid >= nums.size() - 1) {
+            return nums[nums.size() - 1] > nums[nums.size() - 2] ? nums.size() - 1 : nums.size() - 2;
         }
         if (nums[mid] > nums[mid + 1] && nums[mid] > nums[mid - 1]) {
             return mid;
         } else if (nums[mid] < nums[mid + 1]) {
-            left = mid+1;
+            left = mid + 1;
         } else {
-            right = mid-1;
+            right = mid - 1;
         }
     }
     return left;
@@ -580,20 +591,20 @@ int findPeakElement(vector<int>& nums) {
  * offer 04 二维数组的查找
  * 从右上方开始
  */
-bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
+bool findNumberIn2DArray(vector<vector<int>> &matrix, int target) {
     if (matrix.size() < 1 || matrix[0].size() < 1) {
         return false;
     }
     int row = 0;
-    int col = matrix[0].size() -1;
-    while(row >=0 && col < matrix[0].size() && col >=0 && row < matrix.size()) {
+    int col = matrix[0].size() - 1;
+    while (row >= 0 && col < matrix[0].size() && col >= 0 && row < matrix.size()) {
         if (target == matrix[row][col]) {
             return true;
         }
         if (matrix[row][col] > target) {
-            col --;
+            col--;
         } else {
-            row ++;
+            row++;
         }
     }
     return false;
@@ -607,27 +618,49 @@ bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
 int compareVersion(string version1, string version2) {
     int i = 0;
     int j = 0;
-    while(i < version1.size() || j < version2.size()) { //need attention!
+    while (i < version1.size() || j < version2.size()) { //need attention!
         long x = 0;
-        while(i < version1.size() && version1[i] != '.') {
+        while (i < version1.size() && version1[i] != '.') {
             x = x * 10 + version1[i] - '0';
             i++;
         }
         i++;
         long y = 0;
-        while(j < version2.size() && version2[j] != '.') {
+        while (j < version2.size() && version2[j] != '.') {
             y = y * 10 + version2[j] - '0';
             j++;
         }
         j++;
         if (x != y) {
-            return x>y?1:-1;
+            return x > y ? 1 : -1;
         }
     }
     return 0;
 }
 
-int main () {
-    cout<<compareVersion("1.2147483647"
-                   ,"1.2147483647");
+/**
+ * 513 寻找最左下方节点
+ * 层次遍历，倒序排列。
+ */
+int findBottomLeftValue(TreeNode *root) {
+    queue<TreeNode *> q;
+    q.push(root);
+    TreeNode *last = root;
+    while (!q.empty()) {
+        TreeNode *cur = q.front();
+        if (cur->right) {
+            q.push(cur->right);
+        }
+        if (cur->left) {
+            q.push(cur->left);
+            last = cur->left;
+        }
+        last = cur;
+        q.pop();
+    }
+    return last->val;
+}
+
+int main() {
+
 }
