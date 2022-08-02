@@ -661,6 +661,42 @@ int findBottomLeftValue(TreeNode *root) {
     return last->val;
 }
 
+/**
+ * 103 二叉树的锯齿形遍历
+ * 正常解法
+ */
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int>> re;
+    queue<TreeNode*> q;
+    q.push(root);
+    bool order = true;
+    int levelNum = 1;
+    while(!q.empty()) {
+        int curLevelNum = 0;
+        vector<int> tmpVector;
+        for (int i = 0; i < levelNum; i++) {
+            TreeNode*cur = q.front();
+            tmpVector.push_back(cur->val);
+            if (cur->left) {
+                q.push(cur->left);
+                curLevelNum ++;
+            }
+            if (cur->right){
+                q.push(cur->right);
+                curLevelNum ++;
+            }
+            q.pop();
+        }
+        if(!order) {
+            reverse(tmpVector.begin(),tmpVector.end());
+        }
+        order = !order;
+        re.push_back(tmpVector);
+        levelNum = curLevelNum;
+    }
+    return re;
+}
+
 int main() {
 
 }
