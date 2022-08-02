@@ -697,6 +697,79 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
     return re;
 }
 
-int main() {
+/**
+ * 33 旋转搜索排序数组
+ * 二分查找，只查有序的一边。
+ */
+int search(vector<int>& nums, int target) {
+    int left = 0;
+    int right = nums.size() - 1;
+    while(left <= right) {
+        int mid = (left + right) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        }
+        if(nums[0] <= nums[mid]) {
+            if (nums[mid] > target && nums[0] <= target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        } else {
+            if (nums[mid] < target && nums[nums.size()-1] >= target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
 
+/**
+ * 三数之和 暴力超时
+ **/
+vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> re;
+    if (nums.size() < 3) {
+        return re;
+    }
+    sort(nums.begin(), nums.end());
+    for (int i = 0 ; i < nums.size(); i++) {
+        if (i > 0 && nums[i] == nums[i-1]) {
+            continue;
+        }
+        int target = 0 - nums[i];
+        for (int j = i + 1; j < nums.size() ; j ++) {
+            if (nums[j] == nums[j - 1] && j-1 != i) {
+                continue;
+            }
+                for (int k = j + 1; k < nums.size(); k++) {
+                    if (nums[k] > target - nums[j]) {
+                        break;
+                    }
+                    if (nums[k] == target - nums[j]) {
+                        vector<int> tmp(3);
+                        tmp[0] = nums[i];
+                        tmp[1] = nums[j];
+                        tmp[2] = nums[k];
+                        re.push_back(tmp);
+                        break;
+                    }
+                }
+            }
+        }
+    return  re;
+}
+
+int main() {
+    vector<int> nums;
+    nums.push_back(-1);
+    nums.push_back(0);
+    nums.push_back(1);
+    nums.push_back(2);
+    nums.push_back(-1);
+    nums.push_back(-4);
+    vector<vector<int>>  re = threeSum(nums);
+    int i = 0;
 }
